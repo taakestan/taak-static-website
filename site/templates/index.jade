@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  include author
+  each webinar in webinars    
+      .col-xs-12.col-md-6.col-lg-4.article
+        header
+        h3
+          a(href=webinar.url)= webinar.title
+          br
+          span.date= moment.utc(webinar.date).format('MMMM DD, YYYY')
+        section.content
+          if webinar.intro.length > 0
+            != typogr(webinar.intro).typogrify()
+          if webinar.hasMore
+            p(style='text-align: left')
+              a.btn.btn-info(href=webinar.url) اطلاعات بیشتر
+block prepend footer
+  div.btn-group
+    if prevPage
+      a.btn.btn-default(href=prevPage.url) صفحه قبل >
+    if nextPage
+      a.btn.btn-default(href=nextPage.url) < صفحه بعد
